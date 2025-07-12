@@ -2,10 +2,6 @@
 
 A collection of scripts to gently drive a Windows user completely bonkers. It's not a virus, it's a *feature*.
 
-## Disclaimer
-
-**This is a prank.** Use it on your own computer (windows only), or on a friend who owes you money. We're not responsible if you get in trouble. Use at your own risk.
-
 ## How It Works
 
 A script runs in the background, waits a few minutes, and then does something annoying. It starts automatically with Windows.
