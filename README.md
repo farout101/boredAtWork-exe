@@ -1,4 +1,4 @@
-# The Annoyance-as-a-Service Toolkit
+# The Annoyance-As-A-Service Toolkit
 
 A collection of scripts. It's not a virus, it's a *feature*.
 
