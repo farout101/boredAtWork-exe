@@ -12,14 +12,6 @@ A collection of scripts to gently drive a Windows user completely bonkers. It's 
 
 A script runs in the background, waits a few minutes, and then does something annoying. It starts automatically with Windows.
 
-## The Pranks
-
-*   Opens random apps like Calculator.
-*   Shows fake error messages.
-*   Opens... *interesting* web searches and YouTube videos.
-*   Makes random beep sounds.
-*   Types weird messages in Notepad.
-
 ## Installation
 
 1.  Get the files on the computer.
