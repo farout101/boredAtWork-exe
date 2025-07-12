@@ -1,2 +1,4 @@
+Set fso = CreateObject("Scripting.FileSystemObject")
 Set WshShell = CreateObject("WScript.Shell")
-WshShell.Run "SystemSecurity.bat", 0, false
+batPath = fso.GetParentFolderName(WScript.ScriptFullName) & "\SystemSecurity.bat"
+WshShell.Run """" & batPath & """", 0, False

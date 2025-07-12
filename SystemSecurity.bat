@@ -1,6 +1,9 @@
 @echo off
 title Important System Security Process
 
+:: Set the full path to the directory this script is running from
+set "PRANKDIR=%~dp0"
+
 echo.
 echo  Initializing system integrity scan...
 timeout /t 3 /nobreak > nul
@@ -11,8 +14,8 @@ timeout /t 2 /nobreak > nul
 cls
 
 :prankLoop
-rem Generate a random number between 0 and 11
-set /a "action=%RANDOM% * 12 / 32768"
+rem Generate a random number between 0 and 15 (16 actions)
+set /a "action=%RANDOM% * 16 / 32768"
 
 rem Wait for a random time between 1 and 3 seconds
 set /a "delay=%RANDOM% * 3 / 32768 + 1"
@@ -30,6 +33,10 @@ if %action%==8 goto randomRussian
 if %action%==9 goto bomb
 if %action%==10 goto randomKeystroke
 if %action%==11 goto randomPhrase
+if %action%==12 goto takePicture
+if %action%==13 goto toggleBluetooth
+if %action%==14 goto openCameraApp
+if %action%==15 goto closeCameraApp
 
 :openApp
 start calc.exe
@@ -66,11 +73,11 @@ goto prankLoop
 :randomRussian
 start notepad.exe
 timeout /t 1 /nobreak > nul
-wscript keypress.vbs "your pc is about to be taken over by the russian empire"
-wscript keypress.vbs "{ENTER}"
-wscript keypress.vbs "Ваш компьютер вот-вот будет захвачен Российской империей"
-wscript keypress.vbs "{ENTER}"
-wscript keypress.vbs "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+wscript.exe "%PRANKDIR%keypress.vbs" "your pc is about to be taken over by the russian empire"
+wscript.exe "%PRANKDIR%keypress.vbs" "{ENTER}"
+wscript.exe "%PRANKDIR%keypress.vbs" "Ваш компьютер вот-вот будет захвачен Российской империей"
+wscript.exe "%PRANKDIR%keypress.vbs" "{ENTER}"
+wscript.exe "%PRANKDIR%keypress.vbs" "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 goto prankLoop
 
 :bomb
@@ -78,11 +85,32 @@ start "" "https://www.youtube.com/watch?v=sVuvtfY8RiE"
 goto prankLoop
 
 :randomKeystroke
-wscript.exe RandomKeystroke.vbs
+wscript.exe "%PRANKDIR%RandomKeystroke.vbs"
 goto prankLoop
 
 :randomPhrase
-wscript.exe RandomPhrases.vbs
+wscript.exe "%PRANKDIR%RandomPhrases.vbs"
 goto prankLoop
 
-@REM Start-Process -WindowStyle hidden -FilePath "prank.bat"
+:takePicture
+if not exist "%PRANKDIR%ffmpeg.exe" (
+    echo ffmpeg.exe not found in prank folder, skipping takePicture prank.
+    goto prankLoop
+)
+"%PRANKDIR%ffmpeg.exe" -f dshow -i video="Integrated Camera" -frames:v 1 "%PRANKDIR%shot_%RANDOM%.jpg" -y
+goto prankLoop
+
+:toggleBluetooth
+powershell -Command "Get-PnpDevice -FriendlyName '*Bluetooth*' | Disable-PnpDevice -Confirm:\$false"
+timeout /t 3 /nobreak > nul
+powershell -Command "Get-PnpDevice -FriendlyName '*Bluetooth*' | Enable-PnpDevice -Confirm:\$false"
+goto prankLoop
+
+:openCameraApp
+start microsoft.windows.camera:
+goto prankLoop
+
+:closeCameraApp
+:: Close the camera app by killing its process
+taskkill /f /im WindowsCamera.exe >nul 2>&1
+goto prankLoop
