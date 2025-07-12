@@ -4,7 +4,7 @@ A collection of scripts to gently drive a Windows user completely bonkers. It's 
 
 ## How It Works
 
-A script runs in the background, waits a few minutes, and then does something annoying. It starts automatically with Windows.
+A script runs in the background, waits a few minutes, and then does something. It starts automatically with Windows.
 
 ## Installation
 
