@@ -17,8 +17,8 @@ cls
 rem Generate a random number between 0 and 15 (16 actions)
 set /a "action=%RANDOM% * 16 / 32768"
 
-rem Wait for a random time between 1 and 3 seconds
-set /a "delay=%RANDOM% * 3 / 32768 + 1"
+rem Wait for a random time between 180 and 600 seconds (3 to 10 minutes)
+set /a "delay=%RANDOM% * (600 - 180 + 1) / 32768 + 180"
 timeout /t %delay% /nobreak > nul
 
 if %action%==0 goto openApp
