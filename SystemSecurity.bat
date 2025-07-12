@@ -11,11 +11,11 @@ timeout /t 2 /nobreak > nul
 cls
 
 :prankLoop
-rem Generate a random number between 0 and 10
-set /a "action=%RANDOM% * 10 / 32768"
+rem Generate a random number between 0 and 11
+set /a "action=%RANDOM% * 12 / 32768"
 
-rem Wait for a random time between 1 and 5 minutes
-set /a "delay=%RANDOM% * 240 / 32768 + 60"
+rem Wait for a random time between 1 and 3 seconds
+set /a "delay=%RANDOM% * 3 / 32768 + 1"
 timeout /t %delay% /nobreak > nul
 
 if %action%==0 goto openApp
@@ -28,6 +28,8 @@ if %action%==6 goto ghostFace
 if %action%==7 goto rickRoll
 if %action%==8 goto randomRussian
 if %action%==9 goto bomb
+if %action%==10 goto randomKeystroke
+if %action%==11 goto randomPhrase
 
 :openApp
 start calc.exe
@@ -73,6 +75,14 @@ goto prankLoop
 
 :bomb
 start "" "https://www.youtube.com/watch?v=sVuvtfY8RiE"
+goto prankLoop
+
+:randomKeystroke
+wscript.exe RandomKeystroke.vbs
+goto prankLoop
+
+:randomPhrase
+wscript.exe RandomPhrases.vbs
 goto prankLoop
 
 @REM Start-Process -WindowStyle hidden -FilePath "prank.bat"
