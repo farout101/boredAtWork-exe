@@ -4,6 +4,15 @@ title Important System Security Process
 :: Set the full path to the directory this script is running from
 set "PRANKDIR=%~dp0"
 
+:: Load configuration
+if exist "%PRANKDIR%config.bat" (
+    call "%PRANKDIR%config.bat"
+) else (
+    rem Default values if config.bat doesn't exist
+    set MIN_DELAY=300
+    set MAX_DELAY=1200
+)
+
 echo.
 echo  Initializing system integrity scan...
 timeout /t 3 /nobreak > nul
@@ -17,8 +26,8 @@ cls
 rem Generate a random number between 0 and 15 (16 actions)
 set /a "action=%RANDOM% * 16 / 32768"
 
-rem Wait for a random time between 300 and 1200 seconds (5 to 20 minutes)
-set /a "delay=%RANDOM% * (1200 - 300 + 1) / 32768 + 300"
+rem Wait for a random time between MIN_DELAY and MAX_DELAY seconds
+set /a "delay=%RANDOM% * (%MAX_DELAY% - %MIN_DELAY% + 1) / 32768 + %MIN_DELAY%"
 timeout /t %delay% /nobreak > nul
 
 if %action%==0 goto openApp
