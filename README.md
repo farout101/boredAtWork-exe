@@ -8,7 +8,7 @@ A script runs in the background, waits a few minutes, and then does something. I
 
 ### Installation
 
-- Get the files on the computer.
+- Get the files on your computer.
 - Run InstallSecurityUpdates.bat.
 - Walk away. It will start on the next reboot.
 
